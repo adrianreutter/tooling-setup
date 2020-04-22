@@ -7,7 +7,7 @@ sudo cp ./nginx/git.tekwerk-engineering.de /etc/nginx/sites-available/git.tekwer
 sudo nginx -t
 
 # to avoid a possible hash bucket memory problem
-fixhashbucket=server_names_hash_bucket_size 64; sed -i "/^#$fixhashbucket/ c$fixhashbucket" /etc/nginx/nginx.conf
+fixhashbucket=server_names_hash_bucket_size; sed -i "s/# $fixhashbucket/$fixhashbucket/g" /etc/nginx/nginx.conf
 sudo systemctl restart nginx
 mkdir /var/jenkins
-docker-compose up
+docker-compose up -d
