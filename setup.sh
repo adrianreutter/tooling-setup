@@ -9,4 +9,5 @@ sudo nginx -t
 # to avoid a possible hash bucket memory problem
 fixhashbucket=server_names_hash_bucket_size 64; sed -i "/^#$fixhashbucket/ c$fixhashbucket" /etc/nginx/nginx.conf
 sudo systemctl restart nginx
+mkdir /var/jenkins
 docker-compose up

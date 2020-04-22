@@ -46,4 +46,4 @@ services:
     ports:
       - "11001:8080"
     volumes:
-      - /var/jenkins_home:z:/var/jenkins
+      - /var/jenkins_home:/var/jenkins
