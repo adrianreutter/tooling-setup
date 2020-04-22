@@ -5,6 +5,6 @@ server {
   server_name jenkins.tekwerk-engineering.de;
 
   location / {
-    proxy_pass 127.0.0.1:11000;
+    proxy_pass http://127.0.0.1:11000;
   }
 }
