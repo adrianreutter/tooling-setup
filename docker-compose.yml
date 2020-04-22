@@ -19,7 +19,7 @@ services:
     networks:
       - tekwerk
     volumes:
-      - ./gitea:/data
+      - /tekwerk/volumes/gitea:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
@@ -38,7 +38,7 @@ services:
     networks:
       - tekwerk
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - /tekwerk/volumes/postgres:/var/lib/postgresql/data
 
   jenkins:
     image: jenkins:latest
@@ -47,4 +47,4 @@ services:
       - "11001:8080"
       - "50000:50000"
     volumes:
-      - /var/jenkins_home:/var/jenkins
+      - /tekwerk/volumes/jenkins:/var/jenkins
