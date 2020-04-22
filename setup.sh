@@ -12,7 +12,8 @@ sudo nginx -t
 # to avoid a possible hash bucket memory problem
 fixhashbucket=server_names_hash_bucket_size; sed -i "s/# $fixhashbucket/$fixhashbucket/g" /etc/nginx/nginx.conf
 sudo systemctl restart nginx
-mkdir /var/jenkins
+mkdir /tekwerk/volumes/jenkins
+chown 1000 /tekwerk/volumes/jenkins
 
 echo "[Step 2] start docker-compose\n"
 docker-compose up -d
