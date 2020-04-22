@@ -13,6 +13,8 @@ sudo nginx -t
 fixhashbucket=server_names_hash_bucket_size; sed -i "s/# $fixhashbucket/$fixhashbucket/g" /etc/nginx/nginx.conf
 sudo systemctl restart nginx
 mkdir /tekwerk/volumes/jenkins
+
+# fix issue 177 https://github.com/jenkinsci/docker/issues/177
 chown 1000 /tekwerk/volumes/jenkins
 
 echo "[Step 2] start docker-compose\n"
