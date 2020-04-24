@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 
 networks:
   tekwerk:
@@ -43,9 +43,12 @@ services:
   jenkins:
     image: jenkins/jenkins:lts
     restart: always
+    user: jenkins
     ports:
       - "11001:8080"
       - "50000:50000"
     volumes:
       - /tekwerk/volumes/jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
     privileged: true

@@ -15,7 +15,11 @@ sudo systemctl restart nginx
 mkdir /tekwerk/volumes/jenkins
 
 # fix issue 177 https://github.com/jenkinsci/docker/issues/177
-chown 1000 /tekwerk/volumes/jenkins
+sudo chown 1000 /tekwerk/volumes/jenkins
+
+sudo groupadd docker
+sudo usermod -aG docker jenkins
+docker build -f Dockerfile.jenkins -t tekwerk/jenkins:latest .
 
 echo "[Step 2] start docker-compose\n"
 docker-compose up -d
