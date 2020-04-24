@@ -48,3 +48,4 @@ services:
       - "50000:50000"
     volumes:
       - /tekwerk/volumes/jenkins:/var/jenkins_home
+    privileged: true
