@@ -41,7 +41,7 @@ services:
       - /tekwerk/volumes/postgres:/var/lib/postgresql/data
 
   jenkins:
-    image: jenkins/jenkins:lts
+    image: tekwerk/jenkins:latest
     restart: always
     user: jenkins
     ports:
