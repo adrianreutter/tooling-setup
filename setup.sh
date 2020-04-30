@@ -2,35 +2,40 @@
 sudo apt update
 
 step=1
-echo -e "\e[1m[Step $step]\e[21m install nginx\n"
+echo -e ""
+echo -e "\e[1m[Step $step]\e[21m install nginx"
 let "step += 1"
 
-sudo apt install nginx
+sudo apt install -y nginx
 sudo cp ./nginx/jenkins.tekwerk-engineering.de /etc/nginx/sites-available/jenkins.tekwerk-engineering.de
 sudo cp ./nginx/git.tekwerk-engineering.de /etc/nginx/sites-available/git.tekwerk-engineering.de
 ln -s /etc/nginx/sites-available/jenkins.tekwerk-engineering.de /etc/nginx/sites-enabled/jenkins.tekwerk-engineering.de
 ln -s /etc/nginx/sites-available/git.tekwerk-engineering.de /etc/nginx/sites-enabled/git.tekwerk-engineering.de
 sudo nginx -t
 
-echo -e "\e[1m[Step $step]\e[21m fix hashbucket memory problem\n"
+echo -e ""
+echo -e "\e[1m[Step $step]\e[21m fix hashbucket memory problem"
 let "step += 1"
 # to avoid a possible hash bucket memory problem
 fixhashbucket=server_names_hash_bucket_size; sed -i "s/# $fixhashbucket/$fixhashbucket/g" /etc/nginx/nginx.conf
 sudo systemctl restart nginx
-mkdir /tekwerk/volumes/jenkins
+mkdir -p /tekwerk/volumes/jenkins
 
 # fix issue 177 https://github.com/jenkinsci/docker/issues/177
 sudo chown 1000 /tekwerk/volumes/jenkins
 
-echo -e "\e[1m[Step $step]\e[21m build tekwerk jenkins docker image\n"
+echo -e ""
+echo -e "\e[1m[Step $step]\e[21m build tekwerk jenkins docker image"
 let "step += 1"
 docker build -f Dockerfile.jenkins -t tekwerk/jenkins:latest .
 
-echo -e "\e[1m[Step $step]\e[21m start docker-compose\n"
+echo -e ""
+echo -e "\e[1m[Step $step]\e[21m start docker-compose"
 let "step += 1"
 docker-compose up -d
 
-echo -e "\e[1m[Step $step]\e[21m ssl configuration\n"
+echo -e ""
+echo -e "\e[1m[Step $step]\e[21m ssl configuration"
 let "step += 1"
 ssl=false
 while true; do
@@ -52,4 +57,5 @@ if ssl;
     sudo certbot --nginx
 fi
 
+echo -e ""
 echo -e "\e[1m[Done]\e[21m all has been setup\n"
